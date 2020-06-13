@@ -7,5 +7,5 @@ import (
 
 func Start() {
 	r := mux.NewRouter()
-	r.HandleFunc("/comment/{id}", courseCommentHandler).Methods(http.MethodGet)
+	r.HandleFunc("/comment/{course_id}", courseCommentHandler).Methods(http.MethodGet)
 }
