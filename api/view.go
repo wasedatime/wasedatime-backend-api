@@ -2,12 +2,14 @@ package api
 
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
+var Empty struct{}
+
 type CourseComment struct {
 	Id              primitive.ObjectID `bson:"_id" json:"-"`
 	CourseId        string             `bson:"course_id" json:"course_id"`
 	Type            string             `json:"type"`
-	CJLLowestLevel  int8               `bson:"cjl_lowest_level" json:"cjl_lowest_level"`
-	CJLHighestLevel int8               `bson:"cjl_highest_level" json:"cjl_highest_level"`
+	CJLLowestLevel  int8               `bson:"cjl_lowest_level, omitempty" json:"cjl_lowest_level,omitempty"`
+	CJLHighestLevel int8               `bson:"cjl_highest_level, omitempty" json:"cjl_highest_level,omitempty"`
 	Title           string             `json:"title"`
 	Instructor      string             `json:"instructor"`
 	Term            string             `json:"term"`
