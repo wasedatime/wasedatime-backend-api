@@ -4,7 +4,7 @@ set -x
 if [ $TRAVIS_BRANCH == 'staging' ] ; then
     git checkout staging
     git remote add deploy 'deploy@139.59.216.161:wasedatime-backend.git'
-    git add .
+    git add app/app
     git status
     git commit -m "Deploy from Travis CI"
     git status
