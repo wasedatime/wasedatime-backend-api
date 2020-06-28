@@ -1,4 +1,10 @@
 # wasedatime-backend
+
+Branch | Build Status
+--- | --- 
+master | staging
+[![Build Status](https://travis-ci.com/wasedatime/wasedatime-backend.svg?branch=master)](https://travis-ci.com/wasedatime/wasedatime-backend) | [![Build Status](https://travis-ci.com/wasedatime/wasedatime-backend.svg?branch=staging)](https://travis-ci.com/wasedatime/wasedatime-backend)
+
 A Restful API for [WasedaTime](https://wasedatime.com/) written in golang
 
 | HTTP Request  | Request Parameter  | Description                      |
@@ -13,11 +19,9 @@ go v 1.14.4
 
 ```bash
 cd app
-GOOS=linux
-GOARCH=amd64
-go build
+env GOOS=linux GOARCH=amd64 go build
 ```
 
-## Deploy
+## Deploy and daemonitization
 
-See https://kenyaappexperts.com/blog/how-to-deploy-golang-to-production-step-by-step/
+See https://astaxie.gitbooks.io/build-web-application-with-golang/de/12.3.html
