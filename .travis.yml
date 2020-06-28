@@ -1,10 +1,12 @@
 language: go
 go:
-  - "1.14.4"
+  - 1.14.4
+before_install:
+  - bash travis/before_install.sh
 script:
   - bash travis/build.sh
 after_success:
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash travis/deploy.sh; fi'
+  - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash travis/deploy.sh; fi
 addons:
   ssh_known_hosts:
     - 159.89.210.122
