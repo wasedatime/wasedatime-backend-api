@@ -6,9 +6,9 @@ import (
 )
 
 const (
-	MONGO_URL          = "DB_URL" // envvar
-	COMMENT_DB         = "comments"
-	COMMENT_COLLECTION = "comment_test"
+	MONGO_URL              = "MONGO_URL"                    // envvar
+	COURSE_EVAL_DB         = "course_evals"
+	COURSE_EVAL_COLLECTION = "test"
 )
 
 var (
