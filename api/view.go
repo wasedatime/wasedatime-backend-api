@@ -15,5 +15,5 @@ type CourseEval struct {
 	Difficulty    int8               `json:"difficulty"`
 	Benefit       int8               `json:"benefit"`
 	Comment       string             `json:"comment"`
-	CommentedDate time.Time          `json:"commented_date"`
+	CommentedDate time.Time          `bson:"commented_date" json:"commented_date"`
 }
