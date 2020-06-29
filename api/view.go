@@ -1,9 +1,12 @@
 package api
 
-import "go.mongodb.org/mongo-driver/bson/primitive"
+import (
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"time"
+)
 
-type CourseComment struct {
-	ID            primitive.ObjectID `bson:"_id" json:"-"`
+type CourseEval struct {
+	Id            primitive.ObjectID `bson:"_id" json:"-"`
 	CourseKey     string             `bson:"course_key" json:"course_key"`
 	CourseCode    string             `bson:"course_code" json:"course_code"`
 	Title         string             `json:"title"`
@@ -11,6 +14,6 @@ type CourseComment struct {
 	Satisfaction  int8               `json:"satisfaction"`
 	Difficulty    int8               `json:"difficulty"`
 	Benefit       int8               `json:"benefit"`
-	CommentedDate int16              `bson:"commented_date" json:"commented_date"`
 	Comment       string             `json:"comment"`
+	CommentedDate time.Time          `json:"commented_date"`
 }

@@ -8,13 +8,13 @@ import (
 
 const ID = "course_id"
 
-func findCourseCommentByID(id string) []*CourseComment {
-	resp := make([]*CourseComment, 0)
+func findCourseEvalByCourseCode(id string) []*CourseEval {
+	resp := make([]*CourseEval, 0)
 	cur := &mongo.Cursor{}
 	filter := bson.D{{ID, id}}
 	cur, _ = client.Database(COMMENT_DB).Collection(COMMENT_COLLECTION).Find(context.TODO(), filter)
 	for cur.Next(context.TODO()) {
-		comment := &CourseComment{}
+		comment := &CourseEval{}
 		err := cur.Decode(comment)
 		if err != nil {
 			continue
