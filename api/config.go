@@ -9,6 +9,7 @@ const (
 	MONGO_URL          = "DB_URL" // envvar
 	COMMENT_DB         = "comments"
 	COMMENT_COLLECTION = "comment_test"
+	API_URL            = "https://www.wasedatime.com/"
 )
 
 var (
