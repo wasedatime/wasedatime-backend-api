@@ -16,16 +16,16 @@ func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Referer") != ORIGIN {
+	if r.Header.Get("Referer") != origin {
 		w.WriteHeader(http.StatusForbidden)
 		log.Println("[*Cross-Origin*]: User-Agent: " + r.Header.Get("User-Agent") + " IP: " + r.RemoteAddr)
 		return
 	}
 	w.Header().Set("Content-Type", " application/json")
 	w.Header().Set("Referrer-Policy", "origin")
-	w.Header().Set("Access-Control-Allow-Origin", ORIGIN)
+	w.Header().Set("Access-Control-Allow-Origin", origin)
 	params := r.URL.Query()
-	courseCode := params.Get("course_code")
+	courseCode := params.Get("course_key")
 	resp := findCourseEvalByCourseCode(courseCode)
 	err := json.NewEncoder(w).Encode(resp)
 	if err != nil {
