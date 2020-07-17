@@ -6,12 +6,12 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const COURSE_CODE = "course_code"
+const COURSE_KEY = "course_key"
 
-func findCourseEvalByCourseCode(courseCode string) []*CourseEval {
+func findCourseEvalByCourseCode(courseKey string) []*CourseEval {
 	resp := make([]*CourseEval, 0)
 	cur := &mongo.Cursor{}
-	filter := bson.D{{COURSE_CODE, courseCode}}
+	filter := bson.D{{COURSE_KEY, courseKey}}
 	cur, _ = client.Database(COURSE_EVAL_DB).Collection(COURSE_EVAL_COLLECTION).Find(context.TODO(), filter)
 	for cur.Next(context.TODO()) {
 		courseEval := &CourseEval{}
