@@ -7,13 +7,14 @@ import (
 
 const (
     MONGO_URL              = "MONGO_URL" // envvar
+    ORIGIN                 = "ORIGIN" // envar
     COURSE_EVAL_DB         = "course_evals"
     COURSE_EVAL_COLLECTION = "test"
 )
 
 var (
     client *mongo.Client
-    origin = os.Getenv("Origin")
+    origin = os.Getenv(ORIGIN)
 )
 
 // initialize connections to mongodb
