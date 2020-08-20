@@ -8,7 +8,7 @@ import (
 
 const COURSE_KEY = "course_key"
 
-func findCourseEvalByCourseCode(courseKey string) []*CourseEval {
+func findCourseEvalByCourseKey(courseKey string) []*CourseEval {
 	resp := make([]*CourseEval, 0)
 	cur := &mongo.Cursor{}
 	filter := bson.D{{COURSE_KEY, courseKey}}
