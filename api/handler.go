@@ -25,8 +25,8 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 	//w.Header().Set("Referrer-Policy", "origin")
 	//w.Header().Set("Access-Control-Allow-Origin", origin)
 	params := r.URL.Query()
-	courseCode := params.Get("course_key")
-	resp := findCourseEvalByCourseCode(courseCode)
+	courseKey := params.Get("course_key")
+	resp := findCourseEvalByCourseCode(courseKey)
 	err := json.NewEncoder(w).Encode(resp)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
