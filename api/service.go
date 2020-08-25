@@ -3,14 +3,23 @@ package api
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const ID = "course_id"
+const COURSE_KEY = "course_key"
 
-func findCourseCommentByID(id string) *CourseComment {
-	filter := bson.D{{ID, id}}
-	singleResult := client.Database(COMMENT_DB).Collection(COMMENT_COLLECTION).FindOne(context.TODO(), filter)
-	resp := &CourseComment{}
-	_ = singleResult.Decode(resp)
+func findCourseEvalByCourseKey(courseKey string) []*CourseEval {
+	resp := make([]*CourseEval, 0)
+	cur := &mongo.Cursor{}
+	filter := bson.D{{COURSE_KEY, courseKey}}
+	cur, _ = client.Database(COURSE_EVAL_DB).Collection(COURSE_EVAL_COLLECTION).Find(context.TODO(), filter)
+	for cur.Next(context.TODO()) {
+		courseEval := &CourseEval{}
+		err := cur.Decode(courseEval)
+		if err != nil {
+			continue
+		}
+		resp = append(resp, courseEval)
+	}
 	return resp
 }
