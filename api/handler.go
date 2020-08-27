@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/url"
 )
 
 func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
@@ -28,7 +29,9 @@ func courseEvalTestHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Referer") != origin {
+	referer := r.Header.Get("Referer")
+	refererUrl, err_ := url.Parse(referer)
+	if refererUrl.Host != origin {
 		w.WriteHeader(http.StatusForbidden)
 		log.Println("[*Cross-Origin*]: User-Agent: " + r.Header.Get("User-Agent") + " IP: " + r.RemoteAddr)
 		return
@@ -40,7 +43,7 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 	courseKey := params.Get("course_key")
 	resp := findCourseEvalByCourseKey(courseKey, COURSE_EVAL_COLLECTION)
 	err := json.NewEncoder(w).Encode(resp)
-	if err != nil {
+	if err != nil || err_ != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 	}
