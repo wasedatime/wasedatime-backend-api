@@ -9,7 +9,8 @@ const (
     MONGO_URL              = "MONGO_URL" // envvar
     ORIGIN                 = "ORIGIN" // envar
     COURSE_EVAL_DB         = "course_evals"
-    COURSE_EVAL_COLLECTION = "test"
+    COURSE_EVAL_TEST_COLLECTION = "test"
+    COURSE_EVAL_COLLECTION = "staging"
 )
 
 var (
