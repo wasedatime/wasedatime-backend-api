@@ -38,7 +38,7 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", " application/json")
 	w.Header().Set("Referrer-Policy", "origin")
-	w.Header().Set("Access-Control-Allow-Origin", origin)
+
 	params := r.URL.Query()
 	courseKey := params.Get("course_key")
 	resp := findCourseEvalByCourseKey(courseKey, COURSE_EVAL_COLLECTION)
