@@ -8,11 +8,11 @@ import (
 
 const COURSE_KEY = "course_key"
 
-func findCourseEvalByCourseKey(courseKey string, collection string) []*CourseEval {
+func findCourseEvalByCourseKey(courseKey string, colle string) []*CourseEval {
 	resp := make([]*CourseEval, 0)
 	cur := &mongo.Cursor{}
 	filter := bson.D{{COURSE_KEY, courseKey}}
-	cur, _ = client.Database(COURSE_EVAL_DB).Collection(collection).Find(context.TODO(), filter)
+	cur, _ = client.Database(COURSE_EVAL_DB).Collection(colle).Find(context.TODO(), filter)
 	for cur.Next(context.TODO()) {
 		courseEval := &CourseEval{}
 		err := cur.Decode(courseEval)
@@ -20,6 +20,26 @@ func findCourseEvalByCourseKey(courseKey string, collection string) []*CourseEva
 			continue
 		}
 		resp = append(resp, courseEval)
+	}
+	return resp
+}
+
+func findCourseEvals(courseKeys []string, colle string) []*CourseEvals {
+	resp := make([]*CourseEvals, 0)
+	cur := &mongo.Cursor{}
+	for _, courseKey := range courseKeys {
+		filter := bson.D{{COURSE_KEY, courseKey}}
+		evals := make([]*CourseEval, 0)
+		cur, _ = client.Database(COURSE_EVAL_DB).Collection(colle).Find(context.TODO(), filter)
+		for cur.Next(context.TODO()) {
+			courseEval := &CourseEval{}
+			err := cur.Decode(courseEval)
+			if err != nil {
+				continue
+			}
+			evals = append(evals, courseEval)
+		}
+		resp = append(resp, &CourseEvals{CourseKey: courseKey, Comments: evals})
 	}
 	return resp
 }

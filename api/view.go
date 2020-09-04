@@ -24,3 +24,12 @@ type CourseEval struct {
 	Year          int16              `json:"year"`
 	CommentedDate time.Time          `bson:"commented_date" json:"commented_date"`
 }
+
+type CourseEvals struct {
+	CourseKey string        `json:"course_key"`
+	Comments  []*CourseEval `json:"comments"`
+}
+
+type CourseEvalsRequest struct {
+	CourseKeys []string `json:"course_keys"`
+}
