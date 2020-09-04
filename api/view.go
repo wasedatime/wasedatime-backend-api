@@ -17,7 +17,8 @@ type CourseEval struct {
 	Difficulty    int8               `json:"difficulty"`
 	Benefit       int8               `json:"benefit"`
 	CommentSrcLng int8               `json:"comment_src_lng"`
-	CommentZh     string             `bson:"comment_zh" json:"comment_zh"`
+	CommentZhTw   string             `bson:"comment_zh_TW" json:"comment_zh_TW"`
+	CommentZhCn   string             `bson:"comment_zh_CN" json:"comment_zh_CN"`
 	CommentEn     string             `bson:"comment_en" json:"comment_en"`
 	CommentJp     string             `bson:"comment_jp" json:"comment_jp"`
 	Year          int16              `json:"year"`
