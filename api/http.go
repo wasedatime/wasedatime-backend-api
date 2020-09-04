@@ -12,6 +12,7 @@ func Start() {
 	r.HandleFunc("/course_evals_test", courseEvalTestHandler).Methods(http.MethodGet)
 	r.HandleFunc("/course_evals", courseEvalHandler).Methods(http.MethodGet)
 	r.HandleFunc("/course_evals", courseEvalsHandler).Methods(http.MethodPost)
+	r.HandleFunc("/course_evals_test", courseEvalsTestHandler).Methods(http.MethodPost)
 	log.Println("Started api service at port 6001")
 	err := http.ListenAndServe(":6001", r)
 	if err != nil {

@@ -20,7 +20,7 @@ func courseEvalTestHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", " application/json")
 	params := r.URL.Query()
 	courseKey := params.Get("course_key")
-	resp := findCourseEvalByCourseKey(courseKey)
+	resp := findCourseEvalByCourseKey(courseKey, "test")
 	err := json.NewEncoder(w).Encode(resp)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -41,7 +41,7 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 
 	params := r.URL.Query()
 	courseKey := params.Get("course_key")
-	resp := findCourseEvalByCourseKey(courseKey)
+	resp := findCourseEvalByCourseKey(courseKey, "staging")
 	err := json.NewEncoder(w).Encode(resp)
 	if err != nil || err_ != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -62,9 +62,21 @@ func courseEvalsHandler(w http.ResponseWriter, r *http.Request) {
 
 	var requestBody CourseEvalsRequest
 	_ = json.NewDecoder(r.Body).Decode(&requestBody)
-	resp := findCourseEvals(requestBody.CourseKeys)
+	resp := findCourseEvals(requestBody.CourseKeys, "staging")
 	err := json.NewEncoder(w).Encode(resp)
 	if err != nil || err_ != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		log.Println(err)
+	}
+}
+
+func courseEvalsTestHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", " application/json")
+	var requestBody CourseEvalsRequest
+	_ = json.NewDecoder(r.Body).Decode(&requestBody)
+	resp := findCourseEvals(requestBody.CourseKeys, "test")
+	err := json.NewEncoder(w).Encode(resp)
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 	}
