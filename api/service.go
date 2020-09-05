@@ -12,7 +12,7 @@ func findCourseEvalByCourseKey(courseKey string) []*CourseEval {
 	resp := make([]*CourseEval, 0)
 	cur := &mongo.Cursor{}
 	filter := bson.D{{COURSE_KEY, courseKey}}
-	cur, _ = client.Database(COURSE_EVAL_DB).Collection(COURSE_EVAL_COLLECTION).Find(context.TODO(), filter)
+	cur, _ = client.Database(CourseEvalDb).Collection(courseEval).Find(context.TODO(), filter)
 	for cur.Next(context.TODO()) {
 		courseEval := &CourseEval{}
 		err := cur.Decode(courseEval)
@@ -30,7 +30,7 @@ func findCourseEvals(courseKeys []string) []*CourseEvals {
 	for _, courseKey := range courseKeys {
 		filter := bson.D{{COURSE_KEY, courseKey}}
 		evals := make([]*CourseEval, 0)
-		cur, _ = client.Database(COURSE_EVAL_DB).Collection(courseEval).Find(context.TODO(), filter)
+		cur, _ = client.Database(CourseEvalDb).Collection(courseEval).Find(context.TODO(), filter)
 		for cur.Next(context.TODO()) {
 			courseEval := &CourseEval{}
 			err := cur.Decode(courseEval)

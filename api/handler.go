@@ -19,7 +19,7 @@ func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 	referer := r.Header.Get("Referer")
 	refererUrl, err_ := url.Parse(referer)
-	if refererUrl.Host != origin {
+	if err_ != nil && refererUrl != nil && refererUrl.Host != origin {
 		w.WriteHeader(http.StatusForbidden)
 		log.Println("[*Cross-Origin*]: User-Agent: " + r.Header.Get("User-Agent") + " IP: " + r.RemoteAddr)
 		return
@@ -40,7 +40,7 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 func courseEvalsHandler(w http.ResponseWriter, r *http.Request) {
 	referer := r.Header.Get("Referer")
 	refererUrl, err_ := url.Parse(referer)
-	if refererUrl.Host != origin {
+	if err_ != nil && refererUrl != nil && refererUrl.Host != origin {
 		w.WriteHeader(http.StatusForbidden)
 		log.Println("[*Cross-Origin*]: User-Agent: " + r.Header.Get("User-Agent") + " IP: " + r.RemoteAddr)
 		return
