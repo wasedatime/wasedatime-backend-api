@@ -18,8 +18,8 @@ func helloWorldHandler(w http.ResponseWriter, r *http.Request) {
 
 func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 	referer := r.Header.Get("Referer")
-	refererUrl, err_ := url.Parse(referer)
-	if err_ != nil && refererUrl != nil && refererUrl.Host != origin {
+	refererUrl, _ := url.Parse(referer)
+	if refererUrl == nil || refererUrl.Host != origin {
 		w.WriteHeader(http.StatusForbidden)
 		log.Println("[*Cross-Origin*]: User-Agent: " + r.Header.Get("User-Agent") + " IP: " + r.RemoteAddr)
 		return
@@ -31,7 +31,7 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 	courseKey := params.Get("course_key")
 	resp := findCourseEvalByCourseKey(courseKey)
 	err := json.NewEncoder(w).Encode(resp)
-	if err != nil || err_ != nil {
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 	}
@@ -39,8 +39,8 @@ func courseEvalHandler(w http.ResponseWriter, r *http.Request) {
 
 func courseEvalsHandler(w http.ResponseWriter, r *http.Request) {
 	referer := r.Header.Get("Referer")
-	refererUrl, err_ := url.Parse(referer)
-	if err_ != nil && refererUrl != nil && refererUrl.Host != origin {
+	refererUrl, _ := url.Parse(referer)
+	if refererUrl == nil || refererUrl.Host != origin {
 		w.WriteHeader(http.StatusForbidden)
 		log.Println("[*Cross-Origin*]: User-Agent: " + r.Header.Get("User-Agent") + " IP: " + r.RemoteAddr)
 		return
@@ -52,7 +52,7 @@ func courseEvalsHandler(w http.ResponseWriter, r *http.Request) {
 	_ = json.NewDecoder(r.Body).Decode(&requestBody)
 	resp := findCourseEvals(requestBody.CourseKeys)
 	err := json.NewEncoder(w).Encode(resp)
-	if err != nil || err_ != nil {
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		log.Println(err)
 	}
